@@ -63,7 +63,7 @@ function MyVerticallyCenteredModal(state, props) {
 
 let BuyerDataToEmail = null;
 let SellerDataToEmail = null;
-export const Items = ({ posts, loading, setFilter }) => {
+export const ItemsCurrentSell = ({ posts, loading, setFilter }) => {
   const [bid, setBid] = useState();
   const [UserID, setUserID] = useState();
   const [logged, setLogged] = useState(false);
@@ -240,6 +240,7 @@ export const Items = ({ posts, loading, setFilter }) => {
    
   }
 
+
   function findUser(buyerId, sellerID) {
     console.log(buyerId);
 
@@ -316,9 +317,8 @@ export const Items = ({ posts, loading, setFilter }) => {
 
     let minutes = Math.floor((timeleft % (1000 * 60 * 60)) / (1000 * 60));
     if (hours <= 0 && minutes <= 0 && seconds <= 0) {
-    
-      sendEmail(posts);
       del(index);
+      sendEmail(posts);
     }
     if (
       Math.floor(
@@ -421,7 +421,7 @@ export const Items = ({ posts, loading, setFilter }) => {
         <NavLink className="nav-btn" to="/displayCurrent">
           <strong>currently bidding</strong>
         </NavLink>
-        <NavLink className="nav-btn" to="/displayCurrentSell">
+        <NavLink className="nav-btn" to="/displayKids">
           <strong>currently selling</strong>
         </NavLink>
         <hr />
@@ -436,42 +436,8 @@ export const Items = ({ posts, loading, setFilter }) => {
       </div>
 
       <div className="list-items-container">
-        <Form className="d-flex">
-          <Form.Control
-            type="search"
-            placeholder="Search item"
-            className="me-2"
-            aria-label="Search"
-            onChange={(e) => setSearch(e.target.value)}
-          />
-          <Button onClick={() => setFilter(search)}>Search</Button>
-        </Form>
-
-        <span style={{ fontSize: "2vw" }}>
-          {" "}
-          filters :
-          <Button
-            onClick={() => {
-              setFilter("lowToHigh");
-            }}
-            className="category-btn"
-          >
-            from lowest- highest
-          </Button>
-          <Button
-            onClick={() => {
-              setFilter("highToLow");
-            }}
-            className="category-btn"
-          >
-            from highest - lowest
-          </Button>
-          <Button onClick={() => setFilter("upVote")} className="category-btn">
-            most upvoted items
-          </Button>
-        </span>
         <ul>
-          <h3 className="men-sec"> Men Section</h3>
+          <h3 className="men-sec"> Current biddings </h3>
           {items}
           <hr />
         </ul>

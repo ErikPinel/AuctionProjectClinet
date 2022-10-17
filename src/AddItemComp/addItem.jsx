@@ -40,10 +40,8 @@ const { register, handleSubmit, formState:{ errors } } = useForm({
 
 useEffect(()=>{
 
-      // axios.get("/api-users/users/").then((res) => {
-      // setData(res.data);
-      //     })
-      //   setSellerID(localStorage.getItem("logged"))
+      
+        setSellerID(localStorage.getItem("logged"))
 
   if(image)
   uploadImage();
@@ -54,22 +52,24 @@ useEffect(()=>{
 const postItem = (event) => {
     const currentBid=price;
     const bidderID=localStorage.getItem("logged")
-  
+    
 
     const myDate = (new Date(new Date().getTime()+(dueDate*24*60*60*1000))).getTime();
-    let obj = { title: title, dueDate: myDate,description:description,SellerID:SellerID,offers:[{currentBid:Number(currentBid),bidderID}],image:imageURL } ;
+    let obj = { title: title, dueDate: myDate,description:description,SellerID:SellerID,offers:[{currentBid:Number(currentBid),bidderID}],image:imageURL,section:section } ;
     
     if(section== "Men-section")
     {
     axios
       .post("/api-itemMen/itemmen", obj)
       .then((res) => console.log("post"+res));
-      console.log()
+     
     }
    else if(section=="Women-section")
     {
+      
+
     axios
-      .post("/api-itemWomen/itemwomen", obj)
+      .post("/api-itemWomen/itemwomem", obj)
       .then((res) => console.log("post"+res));
     }
   else if(section=="Kids-section")
@@ -79,7 +79,7 @@ const postItem = (event) => {
       .then((res) => console.log("post"+res));
     }
     else alert("fill all fields")
-console.log(section)
+
 
   };
 
@@ -132,7 +132,7 @@ console.log(image)
  </div>
 <div class="div4">    <TextField className='add-inputs' label="starting price" variant="standard" onChange={(e)=>setPrice(e.target.value)} />
  </div>
-<div class="div5">   <Button variant="contained" onClick={()=>{if(section&&title&&dueDate&&description&&price&&image){postItem(); alert("your item was added to the section") ;window.location.reload(false)} else alert("enter all fields")}}> submit</Button>
+<div class="div5">   <Button variant="contained" onClick={()=>{if(section&&title&&dueDate&&description&&price&&image){postItem(); alert("your item was added to the section") } else alert("enter all fields")}}> submit</Button>
 </div>
 </div>
 
